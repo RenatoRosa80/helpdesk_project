@@ -1,0 +1,21 @@
+{% extends 'tickets/base.html' %}
+{% block content %}
+<h2>Meus chamados</h2>
+<a href="{% url 'tickets:ticket_create' %}">Abrir novo chamado</a>
+<table>
+  <thead><tr><th>ID</th><th>Título</th><th>Categoria</th><th>Status</th><th>Ações</th></tr></thead>
+  <tbody>
+    {% for t in tickets %}
+      <tr>
+        <td>{{ t.pk }}</td>
+        <td>{{ t.title }}</td>
+        <td>{{ t.get_category_display }}</td>
+        <td>{{ t.get_status_display }}</td>
+        <td><a href="{% url 'tickets:ticket_detail' t.pk %}">Ver</a></td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="5">Nenhum chamado.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'tickets/base.html' %}
+{% block content %}
+<h2>Chamado #{{ ticket.pk }} - {{ ticket.title }}</h2>
+<p><strong>Categoria:</strong> {{ ticket.get_category_display }}</p>
+<p><strong>Status:</strong> {{ ticket.get_status_display }}</p>
+<p><strong>Criado por:</strong> {{ ticket.created_by.get_full_name|default:ticket.created_by.username }} em {{ ticket.created_at }}</p>
+
+<h3>Descrição</h3>
+<p>{{ ticket.description|linebreaks }}</p>
+
+<h3>Histórico</h3>
+<ul>
+  {% for h in history %}
+    <li><strong>{{ h.timestamp }}</strong> — {{ h.actor.get_full_name|default:h.actor.username if h.actor }} — {{ h.action }} {% if h.note %} — {{ h.note }}{% endif %}</li>
+  {% empty %}
+    <li>Nenhuma ação registrada.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

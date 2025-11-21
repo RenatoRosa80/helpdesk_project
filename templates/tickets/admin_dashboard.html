@@ -1,0 +1,23 @@
+{% extends 'tickets/base.html' %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+<table>
+  <thead><tr><th>ID</th><th>Título</th><th>Categoria</th><th>Status</th><th>Time</th><th>Assigned</th><th>Ações</th></tr></thead>
+  <tbody>
+  {% for t in tickets %}
+    <tr>
+      <td>{{ t.pk }}</td>
+      <td>{{ t.title }}</td>
+      <td>{{ t.get_category_display }}</td>
+      <td>{{ t.get_status_display }}</td>
+      <td>{{ t.get_assigned_team_display if t.assigned_team }}</td>
+      <td>{{ t.assigned_to.get_full_name|default:t.assigned_to.username if t.assigned_to }}</td>
+      <td>
+        <a href="{% url 'tickets:ticket_detail' t.pk %}">Ver</a> |
+        <a href="{% url 'tickets:assign_ticket' t.pk %}">Atualizar/Reencaminhar</a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
