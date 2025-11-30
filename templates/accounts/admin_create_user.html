@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="title">Criar Usuário</h2>
+
+<form method="POST" class="form-modern">
+  {% csrf_token %}
+  
+  <label>Usuário</label>
+  <input type="text" name="username" required>
+
+  <label>Senha</label>
+  <input type="password" name="password" required>
+
+  <label class="checkbox-inline">
+    <input type="checkbox" name="is_staff"> Staff
+  </label>
+
+  <button class="btn btn-primary" type="submit">Salvar</button>
+</form>
+
+{% endblock %}

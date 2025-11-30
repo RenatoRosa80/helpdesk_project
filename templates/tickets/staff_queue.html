@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Fila do Staff</h2>
+<form method="get">
+  <label>Departamento: <select name="department">
+    <option value="">Todos</option>
+    {% for d in departments %}
+      <option value="{{ d.id }}">{{ d.name }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Filtrar</button>
+</form>
+<table>
+  <tr><th>ID</th><th>Título</th><th>Depto</th><th>Status</th><th>Ação</th></tr>
+  {% for t in tickets %}
+  <tr>
+    <td>{{ t.id }}</td>
+    <td>{{ t.title }}</td>
+    <td>{{ t.department }}</td>
+    <td>{{ t.get_status_display }}</td>
+    <td><a href="/tickets/detail/{{ t.id }}/">Ver</a></td>
+  </tr>
+  {% empty %}<tr><td colspan="5">Nenhum chamado</td></tr>{% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,21 @@
+<!-- Adicione isso ao ticket_detail.html -->
+{% if ticket.code_snippet %}
+<div class="mb-4">
+    <h5 class="fw-bold">Código</h5>
+    <div class="card">
+        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+            <span>
+                <i class="fas fa-code me-2"></i>
+                {% if ticket.code_language %}
+                    Linguagem: {{ ticket.get_code_language_display }}
+                {% else %}
+                    Código
+                {% endif %}
+            </span>
+        </div>
+        <div class="card-body p-0">
+            <pre class="m-0"><code class="language-{{ ticket.code_language|default:'plaintext' }}">{{ ticket.code_snippet }}</code></pre>
+        </div>
+    </div>
+</div>
+{% endif %}

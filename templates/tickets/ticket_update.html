@@ -1,0 +1,56 @@
+<!-- tickets/templates/tickets/ticket_update.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-warning text-dark">
+                    <h4 class="mb-0"><i class="fas fa-edit me-2"></i>Editar Chamado #{{ ticket.id }}</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="id_title" class="form-label fw-bold">Título</label>
+                            <input type="text" name="title" id="id_title" 
+                                   class="form-control" value="{{ form.title.value }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_description" class="form-label fw-bold">Descrição</label>
+                            <textarea name="description" id="id_description" 
+                                      class="form-control" rows="5" required>{{ form.description.value }}</textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_category" class="form-label fw-bold">Categoria</label>
+                            <select name="category" id="id_category" class="form-select" required>
+                                <option value="">Selecione uma categoria</option>
+                                {% for category in form.category.field.queryset %}
+                                    <option value="{{ category.id }}" 
+                                            {% if form.category.value == category.id %}selected{% endif %}>
+                                        {{ category.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Salvar Alterações
+                            </button>
+                            <a href="{% url 'tickets:ticket_detail' ticket.id %}" class="btn btn-secondary">
+                                <i class="fas fa-times me-2"></i>Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

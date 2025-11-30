@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="title">Gestão de Usuários</h2>
+
+<a class="btn btn-primary" href="{% url 'accounts:admin_user_create' %}">
+  ➕ Criar Novo Usuário
+</a>
+
+<table class="table-modern">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Usuário</th>
+      <th>Staff</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for u in users %}
+    <tr>
+      <td>{{ u.id }}</td>
+      <td>{{ u.username }}</td>
+      <td>{{ u.is_staff|yesno:"Sim,Não" }}</td>
+      <td>
+        <a class="btn btn-small" href="{% url 'accounts:admin_user_edit' u.id %}">Editar</a>
+        <a class="btn btn-small btn-danger" href="{% url 'accounts:admin_user_delete' u.id %}"
+           onclick="return confirm('Excluir este usuário?');">Excluir</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

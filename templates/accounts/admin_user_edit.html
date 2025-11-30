@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="title">Editar Usuário</h2>
+
+<form method="POST" class="form-modern">
+  {% csrf_token %}
+  
+  <label>Usuário</label>
+  <input type="text" name="username" value="{{ user.username }}" required>
+
+  <label>Nova Senha (opcional)</label>
+  <input type="password" name="password">
+
+  <label class="checkbox-inline">
+    <input type="checkbox" name="is_staff" {% if user.is_staff %}checked{% endif %}> Staff
+  </label>
+
+  <button class="btn btn-primary" type="submit">Atualizar</button>
+</form>
+
+{% endblock %}
